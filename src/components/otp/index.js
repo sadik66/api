@@ -1,6 +1,8 @@
 import React from "react"
 import { useHistory } from "react-router-dom"
+
 import "./otp.css"
+
 const Otp=()=>{
     const history=useHistory();
     const handlesubmit=()=>{

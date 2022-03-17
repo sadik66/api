@@ -1,6 +1,8 @@
 import React from "react"
 import { useHistory } from "react-router-dom"
+
 import "./otpform.css"
+
 const LoginForm = () => {
     const history = useHistory()
     return (
