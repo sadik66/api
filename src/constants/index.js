@@ -3,7 +3,6 @@ export const ACTIVE_WORKFLOW_NAME = "Mother Workflow";
 export const ACTIVE_LMS_PRODUCT = "Installment";
 
 export const LMS_PARTNER_CODE = "yabxdemo_in";
-export const LMS_PARTNER_COD = "yabxdemo_in";
 
 export const LMS_OS = "web_application";
 
