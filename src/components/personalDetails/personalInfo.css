@@ -1,0 +1,270 @@
+h1,
+p {
+  font-family: Lato;
+}
+.body {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.form-container {
+  margin-top: 30px;
+  max-width: 100%;
+  width: 754px;
+  height: 484px;
+  background: #ffffff;
+  border: 2px solid black;
+  border-radius: 6px;
+  padding: 20px;
+}
+.details-container{
+  margin-top: 30px;
+  max-width: 100%;
+  width: 754px;
+  height: 484px;
+  background: #ffffff;
+  border: 2px solid black;
+  border-radius: 6px;
+  padding: 20px;
+}
+.nav-bar {
+  text-align: start;
+  text-justify: inter-cluster;
+  vertical-align: middle;
+  max-width: 100%;
+  height: 50px;
+  background-color: #fff;
+}
+.nav-child {
+  text-align: start;
+  padding-top: 10px;
+}
+.root-body {
+  position: absolute;
+  width: 100%;
+  height: 775px;
+  left: 0px;
+  top: 0px;
+  background: #f6f8fe;
+}
+
+.details-root-body{
+  position: absolute;
+  width: 100%;
+  height: 775px;
+  left: 0px;
+  top: 0px;
+  background: #f6f8fe;
+}
+/* order list */
+
+.order-list {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  width: 794px;
+}
+.order-list p {
+  margin-right: 35px;
+  margin-top: 30px;
+  font-size: 20px;
+}
+
+.tog-list {
+  display: none;
+}
+@media screen and (max-width: 800px) {
+  .order-list {
+    display: none;
+  }
+  .tog-list {
+    display: block;
+  }
+  .root-body {
+    height: 1165px;
+  }
+  .details-root-body{
+    height: 900px;
+  }
+  .form-container {
+    height: 880px;
+    width: 260px;
+    margin: 10px;
+    overflow: hidden;
+  }
+  .details-container{
+    height: 640px;
+    width: 260px;
+    margin: 10px;
+    overflow: hidden;
+  }
+  .order-list {
+    overflow: auto;
+  }
+  /* .buttons {
+    width: 300px;
+  } */
+  .sub-container {
+    width: 260px;
+    max-width: 100%;
+    height: 880px;
+  }
+  /* .buttons button {
+    width: 163px;
+    height: 40px;
+  } */
+
+  .personal-details{
+    margin-bottom: 10px;
+    width: 130px;
+}
+/* .personal-details label {
+  font-size: 18px;
+  font-style: normal;
+  line-height: 16px;
+  color: #212529;
+  display: block;
+  margin-bottom: 3px;
+} */
+}
+/* @media screen and (min-width: 676px) {
+  .buttons button {
+    width: 163px !important;
+    height: 40px;
+  }
+} */
+
+/* buttons */
+
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 794px;
+  max-width: 100%;
+}
+.buttons button {
+  width: 288px;
+  height: 40px;
+}
+
+.btn1{
+    background-color: #fff;
+    color: blue;
+    border-radius: 6px;
+}
+.btn2{
+    background-color: blue;
+    color:#fff;
+    border-radius: 6px;
+}
+
+.btn-pre{
+  background-color: #fff;
+    color: blue;
+    border-radius: 6px;
+    border: 1px solid blue;
+}
+.btn-dis{
+  border-radius: 6px;
+}
+.btn-en{
+  background-color: blue;
+    color:#fff;
+    border-radius: 6px;
+}
+
+/* sub-container */
+
+.sub-container {
+  width: 794px;
+  max-width: 100%;
+  height: 484px;
+}
+
+/* form */
+.main-form {
+  display: flex;
+  flex-direction: row;
+ /*  align-items: center; */
+  flex-wrap: wrap;
+}
+
+.personal-form {
+  margin-bottom: 20px;
+}
+.personal-details{
+    margin-bottom: 30px;
+   /*  width: 250px; */
+}
+
+.personal-details label,.personal-form label {
+  font-size: 18px;
+  font-style: normal;
+  line-height: 16px;
+  color: #212529;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.personal-form input {
+  /* height: 40px; */
+  width: 214px;
+  border-radius: 6px;
+  border: 1px solid #212529;
+  padding: 12px 15px;
+  background: #fff;
+  color: #00000080;
+  font-size: 14px;
+  margin-right: 5px;
+}
+.personal-form .select-arrow select {
+  /* height: 40px; */
+  width: 246px;
+  border-radius: 6px;
+  border: 1px solid #212529;
+  padding: 12px 15px;
+  background: #fff;
+  color: #00000080;
+  font-size: 14px;
+  margin-right: 5px;
+}
+.form-select {
+  width: 100px;
+}
+
+.personal-details .detail-div {
+    /* height: 40px; */
+    width: 214px;
+    padding: 12px 0px;
+    background: #fff;
+    color: #00000080;
+    font-size: 16px;
+    margin-right: 5px;
+  }
+  .edit-button-div{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+  }
+  .edit-button-div .edit{
+      width: 100px;
+      height: 40px;
+      border: 1px solid blue;
+      border-radius: 6px;
+      color: blue;
+      font-size: 16px;
+  }
+
+  /* checkbox */
+
+  .confirm-msg{
+    display: inline-block;
+    font-size: 18px;
+  }
+  .checkbox{
+    width: 20px;
+    height: 20px;
+  }
