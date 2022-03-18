@@ -13,7 +13,7 @@ p {
   margin-top: 30px;
   max-width: 100%;
   width: 754px;
-  height: 484px;
+  height: 424px;
   background: #ffffff;
   border-radius: 6px;
   padding: 20px;
@@ -74,6 +74,12 @@ p {
   display: none;
 }
 @media screen and (max-width: 800px) {
+  .show{
+    display: inline-block;
+    width: 228px;
+    height: 30px;
+    background-color: red;
+  }
   .order-list {
     display: none;
   }
@@ -81,13 +87,13 @@ p {
     display: block;
   }
   .root-body {
-    height: 1165px;
+    height: 1255px;
   }
   .details-root-body{
     height: 900px;
   }
   .form-container {
-    height: 880px;
+    height: 1020px;
     width: 260px;
     margin: 10px;
     overflow: hidden;
@@ -126,6 +132,8 @@ p {
   display: block;
   margin-bottom: 3px;
 } */
+
+
 }
 /* @media screen and (min-width: 676px) {
   .buttons button {
@@ -206,7 +214,7 @@ p {
   display: block;
   margin-bottom: 0.2rem;
 }
-.personal-form input {
+.input-field {
   /* height: 40px; */
   width: 214px;
   border-radius: 6px;
@@ -217,11 +225,31 @@ p {
   font-size: 14px;
   margin-right: 5px;
 }
-.personal-form .select-arrow select {
+.input-field-border {
   /* height: 40px; */
+  width: 214px;
+  border-radius: 6px;
+  border: 1px solid red;
+  padding: 12px 15px;
+  background: #fff;
+  color: #00000080;
+  font-size: 14px;
+  margin-right: 5px;
+}
+.select-field {
   width: 246px;
   border-radius: 6px;
   border: 1px solid #212529;
+  padding: 12px 15px;
+  background: #fff;
+  color: #00000080;
+  font-size: 14px;
+  margin-right: 5px;
+}
+.select-field-border {
+  width: 246px;
+  border-radius: 6px;
+  border: 1px solid red;
   padding: 12px 15px;
   background: #fff;
   color: #00000080;
@@ -265,4 +293,23 @@ p {
   .checkbox{
     width: 20px;
     height: 20px;
+  }
+
+
+  /* validation */
+
+  .show{
+  /*   display: block;
+    width: 728px; */
+    height: 30px;
+    background-color: lightpink;
+    border-radius: 6px;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    margin-top: 10px;
+  }
+  .hide{
+    display: none;
   }

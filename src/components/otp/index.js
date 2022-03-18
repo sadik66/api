@@ -6,7 +6,7 @@ import "./otp.css"
 const Otp=()=>{
     const history=useHistory();
     const handlesubmit=()=>{
-        history.push("/login/otp/personaldetails")
+        history.push("/personaldetails")
     }
     return (
         <div className=" container">

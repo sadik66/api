@@ -60,7 +60,7 @@ const handleCheckBox=(e)=>{
               <div className="sub-container">
                 <div className="edit-button-div">
                     <h2>Personal Details</h2>
-                    <button className="edit" onClick={()=>{history.push(`/login/otp/personaldetailsForm/${true}`)}}>Edit</button>
+                    <button className="edit" onClick={()=>{history.push(`/personaldetailsForm`)}}>Edit</button>
                 </div>
                 <form className="main-form">
                   <div className="personal-details">

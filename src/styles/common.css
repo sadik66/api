@@ -12,6 +12,15 @@
   
 }
 
+/* important star */
+
+.color-star{
+  color: red;
+}
+.text-border{
+  border: 1px solid red;
+}
+
 /* .side-component {
     background-color: #F6F8FE;
     /* min-height: 97vh;

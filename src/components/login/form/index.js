@@ -10,7 +10,7 @@ const LoginForm = () => {
         <div className=" container">
             <h2>Welcome to YABX</h2>
             <h4>Please enter your number</h4>
-            <form onSubmit={()=>{history.push("/login/otp")}}>
+            <form onSubmit={()=>{history.push("/otp")}}>
                 <input type="text" className="form-input margin"/>
                 <button type="submit"  className="btn">send</button>
             </form>
