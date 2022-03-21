@@ -20,7 +20,11 @@
   border-radius: 6px;
 }
 .margin{
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+}
+.error-div{
+  color: red;
+  margin-bottom: 20px;
 }
 .btn {
   max-width: 100%;

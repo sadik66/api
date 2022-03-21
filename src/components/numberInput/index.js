@@ -1,6 +1,7 @@
 import React from "react"
 
 import "../../styles/common.css"
+
 const NumberInput = ({ handleChange, values,fieldDisplayName,  fieldName ,mandatory, showErrors}) => {
     return (
         <div className="personal-form">
@@ -12,7 +13,7 @@ const NumberInput = ({ handleChange, values,fieldDisplayName,  fieldName ,mandat
                 className="input-field"
                 type="number"
                 name={fieldName}
-                value={values}
+                value={values?values:''}
                 onChange={handleChange}
                 disabled={true}
             />

@@ -1,6 +1,8 @@
 import React from "react"
 import { useHistory } from "react-router-dom"
 
+import { getCookie } from "../../utils/cookie-helper"
+
 import "./otp.css"
 
 const Otp=()=>{
@@ -11,7 +13,7 @@ const Otp=()=>{
     return (
         <div className=" container">
             <h2>Welcome Deeraj</h2>
-            <h4>A OTP has been sent to-9849128606</h4>
+            <h4>A OTP has been sent to-{getCookie("phoneNumber")}</h4>
             <form onSubmit={handlesubmit}>
                 <input type="text" className="password-input"/>
                 <input type="text" className="password-input"/>

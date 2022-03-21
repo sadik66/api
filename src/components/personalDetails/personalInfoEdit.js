@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
-import { useHistory,/* useParams */ } from "react-router-dom";
+import { useHistory,/* useParams */useLocation } from "react-router-dom";
+
 
 import Input from "../textInput";
 import DateInput from "../dateInput";
@@ -11,48 +12,75 @@ import "./personalInfo.css"
 import logo from "../../assets/logo.png"
 
 import { ACTIVE_KYC_ID } from "../../constants";
-import { getKycDefination } from "../../services/kyc-service";
+import { getCustomerKyc, getKycDefination, submitKyc } from "../../services/kyc-service";
+import { getCookie } from "../../utils/cookie-helper";
+import { toast } from "react-toastify";
 
 const PersonalInfoEdit = () => {
   const history = useHistory();
+  const location = useLocation();
+
   const params = {
     id: ACTIVE_KYC_ID,
   }
+
   const [personalInfoDetails, setPersonalInfoDetails] = useState([]);
   const [formErrors, setFormErrors] = useState({})
   const [showErrors, setShowErrors] = useState({})
   const [title, setTitle] = useState('');
   const [age, setAge] = useState();
   const [isSubmit, setIsSubmit] = useState(false);
-
+  const [versionData, setVersionData] = useState();
+  const [response, setResponse] = useState(null);
+console.log(response)
   const [personalFormValues, setPersonalFormValues] = useState({
-    firstname: '',
-    middlename: '',
-    lastname: '',
-    dob: '',
+    first_name: '',
+    middle_name: '',
+    last_name: '',
+    date_of_birth: '',
     gender: '',
-    maritalstatus: '',
-    pannumber: '',
+    marital_status: '',
+    pan_number: '',
     occupation: '',
   });
   useEffect(() => {
-
     fetchPersonalDetails();
-
-    let data = JSON.parse(localStorage.getItem("details"))
-    if (data) setPersonalFormValues(data)
-    else setPersonalFormValues({
-      firstname: '',
-      middlename: '',
-      lastname: '',
-      dob: '',
-      gender: '',
-      maritalstatus: '',
-      pannumber: '',
-      occupation: '',
-    })
-
+    fetchCustomerKyc();
   }, [])
+
+  const fetchCustomerKyc = async () => {
+    const customerKycParams = {
+      msisdn: getCookie("phoneNumber"),
+      kycId: ACTIVE_KYC_ID,
+    }
+    const { status, data, error } = await getCustomerKyc(customerKycParams)
+    if (error) {
+      toast.error(error.message)
+    }
+    else {
+      if (status === 200 && data.statusCode === 404) {
+        setPersonalFormValues({
+          first_name: '',
+          middle_name: '',
+          last_name: '',
+          date_of_birth: '',
+          gender: '',
+          marital_status: '',
+          pan_number: '',
+          occupation: '',
+        })
+      }
+      else {
+        if (status === 200 && data.data) {
+          setPersonalFormValues(data.data.data)
+          setResponse(data.data.data)
+          setAge(data.data.data.age)
+        }
+      }
+    }
+
+  }
+
   const fetchPersonalDetails = async () => {
     const { data, status, error } = await getKycDefination(params);
     if (error) {
@@ -79,6 +107,7 @@ const PersonalInfoEdit = () => {
           })
           showerrors[person.fieldName] = false;
         })
+        setVersionData(data.data.version)
         setShowErrors(showerrors)
         setPersonalInfoDetails(personaldetails)
         setTitle(packageTitle)
@@ -86,6 +115,40 @@ const PersonalInfoEdit = () => {
     }
 
 
+  }
+
+  useEffect(() => {
+    setPersonalFormValues({ ...personalFormValues, "age": age });
+  }, [age])
+
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && isSubmit===true) {
+      createKyc(personalFormValues)
+     // history.push("/personaldetails")
+     history.push({
+      pathname: `/personalInfo`,query:personalFormValues
+       }
+     )
+     alert("please refresh the page")
+    }
+  }, [formErrors, isSubmit]);
+
+
+  const createKyc = async (personalFormValues) => {
+    let postData = {
+      kycId: ACTIVE_KYC_ID,
+      created_by: getCookie("phoneNumber"),
+      data: personalFormValues,
+      version: versionData
+    }
+
+    const { status, data, error } = await submitKyc(postData);
+    if (error) {
+      toast.error(error.message)
+    } else if (status === 200 && data) {
+      console.log("data submit", data)
+    }
+    console.log(postData)
   }
 
   const handleChange = (e) => {
@@ -103,22 +166,10 @@ const PersonalInfoEdit = () => {
 
   };
 
-  useEffect(() => {
-    setPersonalFormValues({ ...personalFormValues, [age]: age });
-  }, [age])
-
-  useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      history.push("/personaldetails")
-    }
-  }, [formErrors]);
-
   const handlesubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(personalFormValues));
     setIsSubmit(true)
-    //localStorage.setItem("details", JSON.stringify(personalFormValues));
-    // if(!formErrors){history.push("/personaldetails")}
   }
 
   const validate = (formValues) => {
@@ -143,6 +194,7 @@ const PersonalInfoEdit = () => {
         }
       }
       if (formValues[age] < 20) {
+        console.log(formValues[age])
         errors.age = "You should be 20 years and above to apply for loan "
         setShowErrors({
           ...showErrors, "date_of_birth": true
@@ -253,8 +305,8 @@ const PersonalInfoEdit = () => {
         </div>
 
         <div className="buttons">
-          <button className="btn1" onClick={() => { history.push("/personaldetails") }}>Discard Change</button>
-          <button className="btn2" onClick={handlesubmit}>Update</button>
+          <button className="btn1" onClick={() => { history.push("/personaldetails") }} disabled={response!==null?false:true}>Discard Change</button>
+          <button className="btn2" onClick={handlesubmit}>{response!==null?"Update":"submit"}</button>
         </div>
       </div>
     </div>

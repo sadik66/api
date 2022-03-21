@@ -1,11 +1,41 @@
-import React from "react"
+import React,{useEffect,useState} from "react"
 
 import PersonalInfoEdit from "./personalInfoEdit";
 import PersonalInfo from "./personalInfo";
 
-const PersonalDetails=()=>{
-    let data=JSON.parse(localStorage.getItem("details"))
+import { getCookie } from "../../utils/cookie-helper";
+import { getCustomerKyc } from "../../services/kyc-service";
 
+import { toast } from "react-toastify";
+import { ACTIVE_KYC_ID } from "../../constants";
+
+const PersonalDetails=()=>{
+    const [data,setData]=useState(false)
+  useEffect(()=>{
+        fetchCustomerKyc();
+  },[])
+  
+  const fetchCustomerKyc= async ()=>{
+    const customerKycParams={
+      msisdn:getCookie("phoneNumber"),
+      kycId: ACTIVE_KYC_ID,
+    }
+    const {status,data,error}= await getCustomerKyc(customerKycParams)
+      if (error) {
+        toast.error(error.message)
+      }
+      else {
+        if (data.statusCode === 404) {
+            console.log(data.statusCode)
+            setData(false)
+        }
+        else {
+          if (status === 200 && data.data) {
+            setData(true)
+          }
+        }
+  }
+  }
     return (
         <div>
            {data?<PersonalInfo/>:<PersonalInfoEdit/>} 

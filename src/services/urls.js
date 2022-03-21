@@ -16,3 +16,10 @@ export const getKycDefinationUrl=(params=null)=>{
         return attachParams(url,params);
     }
 }
+
+export const getCustomerKycUrl = (params=null)=>{
+    let url =`${GET_KYC_RESPONSE_BODY}`;
+    if(params){
+        return attachParams(url,params);
+    }
+}
