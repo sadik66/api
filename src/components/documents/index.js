@@ -29,7 +29,6 @@ const Documents = () => {
     const params = {
         id: ACTIVE_KYC_ID,
     }
-    console.log(frontBack)
     /* useEffect(() => {
         fetchPersonalDocuments();
     }, [])
