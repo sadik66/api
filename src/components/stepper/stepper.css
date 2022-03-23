@@ -1,0 +1,84 @@
+.stepper-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+.stepper-main-div {
+
+    width: 794px;
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.loan-info {
+    display: flex;
+    justify-content: baseline;
+    align-items: center;
+    margin-right: 12px;
+}
+
+.one {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    margin-right: 5px;
+    background-color: #DFE2E6;
+}
+.one-active{
+    background-color: #EB6E7F;
+    color: #fff;
+}
+.extra-width{
+    width: 122px;
+}
+.two {
+    font-size: 19.94px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    /* identical to box height, or 171% */
+
+
+    /* Primary/Default */
+
+    color:#000;
+}
+
+.two-active{
+    color: #EB6E7F;
+}
+/* empty div */
+
+.main-empty-div{
+    width: 794px;
+}
+.empty-div {
+    /* position: absolute;
+    width: 800px;
+    height: 4px;
+    left: 323px;
+    top: 193px; */
+
+    background: #DFE2E6;
+    border-radius: 2px;
+    display: flex;
+    height: 4px;
+
+}
+
+.sub-empty-div {
+    width: 100%;
+    height: 4px;
+
+    /* Primary/Default */
+    background: #DFE2E6;
+
+    border-radius: 2px;
+    margin-right: 3px;
+}
+.active{
+    background: #EB6E7F;
+}

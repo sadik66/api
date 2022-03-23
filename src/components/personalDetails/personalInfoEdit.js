@@ -6,6 +6,7 @@ import Input from "../textInput";
 import DateInput from "../dateInput";
 import Select from "../select";
 import NumberInput from "../numberInput";
+import Stepper from "../stepper";
 
 import "./personalInfo.css"
 
@@ -32,7 +33,6 @@ const PersonalInfoEdit = () => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [versionData, setVersionData] = useState();
   const [response, setResponse] = useState(null);
-console.log(response)
   const [personalFormValues, setPersonalFormValues] = useState({
     first_name: '',
     middle_name: '',
@@ -93,7 +93,6 @@ console.log(response)
         const packageTitle = personalInfo.packageTitle;
         const personaldetails = [];
         const showerrors = {};
-        console.log(packageDTOs)
         let filterpackageDTOs=packageDTOs.filter((s)=>{
           if(s.fieldName==="first_name" || s.fieldName==="middle_name"|| s.fieldName==="last_name"||
               s.fieldName==="date_of_birth"||s.fieldName==="gender"||s.fieldName==="marital_status"||
@@ -137,7 +136,6 @@ console.log(response)
       pathname: `/personalInfo`,query:personalFormValues
        }
      )
-     alert("please refresh the page")
     }
   }, [formErrors, isSubmit]);
 
@@ -156,7 +154,6 @@ console.log(response)
     } else if (status === 200 && data) {
       console.log("data submit", data)
     }
-    console.log(postData)
   }
 
   const handleChange = (e) => {
@@ -202,7 +199,6 @@ console.log(response)
         }
       }
       if (formValues[age] < 20) {
-        console.log(formValues[age])
         errors.age = "You should be 20 years and above to apply for loan "
         setShowErrors({
           ...showErrors, "date_of_birth": true
@@ -220,15 +216,9 @@ console.log(response)
       </div>
 
       <div className="body">
-        <div className="order-list">
-          <p>loan info</p>
-          <p style={{ color: "blue" }}>personal info</p>
-          <p>address</p>
-          <p>documents</p>
-          <p>summary</p>
-          <p>mandate</p>
-          <p>Esign</p>
-        </div>
+      <div className='order-list '>
+                    <Stepper></Stepper>
+                </div>
         <div className="tog-list">
           <p>personal info</p>
         </div>

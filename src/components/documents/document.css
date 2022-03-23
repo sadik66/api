@@ -1,65 +1,230 @@
-.documents-upload-div{
+.documents-container {
+    margin-top: 30px;
+    max-width: 100%;
+    width: 754px;
+    height: 414px;
+    background: #ffffff;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.documents-root-body{
+    position: absolute;
+    width: 100%;
+    height: 752px;
+    left: 0px;
+    top: 0px;
+    background: #f6f8fe;
+  }
+
+
+.documents-upload-div {
     display: flex;
     max-width: 100%;
     margin-bottom: 15px;
 
 }
-.document-front,.document-back{
+
+.document-front, .document-back {
     width: 100%;
     min-height: 210px;
     height: 210px;
+    border: 2px solid red;
     border-style: dashed;
-   /*  text-align: center;
+    /*  text-align: center;
     padding-top: 70px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    /* filter: drop-shadow(0px 0px 1px rgba(46, 91, 255, 0.45)) */
+    ;
+    border-radius: 8px;
+
 }
-.document-front{
+
+.document-front {
     margin-right: 25px;
 }
-.document-type{
+
+.document-type {
     margin-top: 25px;
     margin-bottom: 10px;
 }
-.document-radio-type input{
+
+
+.document-radio-type input {
     margin-right: 10px;
+    width: 15px;
+    height: 15px;
+    border: 1px;
+    border-radius: 50%;
+    text-align: center;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    /* identical to box height, or 150% */
+    color: #666666;
 }
-.document-radio-type{
+
+.document-radio-type span {
+    margin-right: 25px;
+    align-items: centerks;
+}
+
+.document-radio-type {
     margin-bottom: 10px;
 }
-.documents-text{
+
+.documents-text {
     display: flex;
 }
-.hun{
+
+.hun {
     max-width: 100%;
     width: 360px;
 }
-.hun:first-child{
+
+.hun:first-child {
     margin-right: 30px;
 }
-.hun-text{
-    font-size: 18px;
-    margin-bottom: 15px;
+
+.hun-text {
+    margin-bottom: 5px;
     margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    
 }
-.document-type b{
-    font-size: 16px;
+.hun-text-child{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    /* identical to box height, or 171% */
+    letter-spacing: 0.02em;
+    color: #191919;
+    
 }
- 
-.document-error{
+.hun-text-change{
+    color: deepskyblue;
+}
+
+.document-type b {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    /* identical to box height, or 171% */
+    letter-spacing: 0.02em;
+    color: #191919;
+
+}
+
+.document-error {
     color: red;
     text-align: center;
     width: 100%;
     height: 20px;
     background-color: lightpink;
-    border-radius: 6px ;
+    border-radius: 6px;
 }
-.document-no-error{
+
+.document-no-error {
     text-align: center;
     width: 100%;
     height: 20px;
     background-color: white;
-    border-radius: 6px ;
+    border-radius: 6px;
+}
+
+h2 {
+    margin-top: 0px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 36px;
+    /* identical to box height, or 150% */
+    color: #333333;
+}
+
+.document-front h3, .document-back h3 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    /* identical to box height */
+
+    text-align: center;
+    letter-spacing: 0.12px;
+
+    color: #191919;
+
+}
+
+.span {
+    color: lightskyblue;
+}
+
+.mar-span {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    /* identical to box height, or 150% */
+
+
+    color: #999999;
+}
+
+.documents-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 794px;
+    max-width: 100%;
+    margin-top: 30px;
+}
+
+.documents-buttons button {
+    width: 288px;
+    height: 40px;
+}
+
+.documents-sub-container {
+    width: 794px;
+    max-width: 100%;
+    height: 474px;
+}
+
+@media screen and (max-width: 800px) {
+    .documents-container {
+        height: 720px;
+        width: 260px;
+        margin: 10px;
+        overflow: hidden;
+    }
+
+    .document-radio-type .main-span {
+        display: block;
+    }
+
+    .documents-upload-div {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+        margin-bottom: 15px;
+
+    }
+    .documents-root-body{
+       height: 975px;
+      }
 }

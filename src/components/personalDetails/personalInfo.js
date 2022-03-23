@@ -1,13 +1,17 @@
 import React,{useState,useEffect} from "react";
 import { useHistory,useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import Stepper from "../stepper";
 
 import "./personalInfo.css"
 
 import logo from "../../assets/logo.png"
-import { getCookie } from "../../utils/cookie-helper";
 import { ACTIVE_KYC_ID } from "../../constants";
+
 import { getCustomerKyc } from "../../services/kyc-service";
-import { toast } from "react-toastify";
+import { getCookie } from "../../utils/cookie-helper";
+
 
 const PersonalInfo=()=>{
     const history=useHistory();
@@ -40,12 +44,10 @@ const fetchCustomerKyc= async ()=>{
     kycId: ACTIVE_KYC_ID,
   }
   const {status,data,error}= await getCustomerKyc(customerKycParams)
-  console.log(status,data,error)
   if(error){
     toast.error(error.message)
   }
   else if(status===200 && data.data){
-    console.log("f",data.data.data)
     setDetails(data.data.data)
   }
   else if(data.statusCode===404){
@@ -69,15 +71,9 @@ const fetchCustomerKyc= async ()=>{
           </div>
     
           <div className="body">
-            <div className="order-list">
-              <p>loan info</p>
-              <p style={{color:"blue"}} >personal info</p>
-              <p>address</p>
-              <p>documents</p>
-              <p>summary</p>
-              <p>mandate</p>
-              <p>Esign</p>
-            </div>
+          <div className='order-list '>
+                    <Stepper></Stepper>
+                </div>
             <div className="tog-list">
             <p>personal info</p>
             </div>
