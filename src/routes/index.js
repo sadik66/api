@@ -5,6 +5,7 @@ import SubmitOtp from "../containers/otp";
 import PersonalDetails from "../components/personalDetails";
 import PersonalInfoEdit from "../components/personalDetails/personalInfoEdit";
 import PersonalInfo from "../components/personalDetails/personalInfo";
+import Documents from "../components/documents";
 
 const RouterComponent=()=>{
     return (
@@ -15,6 +16,7 @@ const RouterComponent=()=>{
                 <Route exact path="/personaldetailsForm" component={(props) => <PersonalInfoEdit {...props} />}/>
                 <Route exact path="/personaldetails" component={(props) => <PersonalDetails {...props} />}/>
                 <Route exact path="/personalInfo" component={(props) => <PersonalInfo {...props} />}/>
+                <Route exact path="/documents" component={(props) => <Documents {...props} />}/>
                 </Switch>
              </BrowserRouter>   
     )

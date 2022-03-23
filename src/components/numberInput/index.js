@@ -15,7 +15,7 @@ const NumberInput = ({ handleChange, values,fieldDisplayName,  fieldName ,mandat
                 name={fieldName}
                 value={values?values:''}
                 onChange={handleChange}
-                disabled={true}
+                disabled={false}
             />
         </div>
     )

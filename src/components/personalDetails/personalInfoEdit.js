@@ -89,11 +89,19 @@ console.log(response)
       if (status === 200 && data) {
         let response = data.data.packagesDTOs;
         let personalInfo = response.find(obj => obj.packageId === "61d847683fe3296a7c7c40ca");
-        const packageDTOs = personalInfo.children;
+        const packageDTOs = personalInfo.children;        
         const packageTitle = personalInfo.packageTitle;
         const personaldetails = [];
         const showerrors = {};
-        packageDTOs.map((person) => {
+        console.log(packageDTOs)
+        let filterpackageDTOs=packageDTOs.filter((s)=>{
+          if(s.fieldName==="first_name" || s.fieldName==="middle_name"|| s.fieldName==="last_name"||
+              s.fieldName==="date_of_birth"||s.fieldName==="gender"||s.fieldName==="marital_status"||
+              s.fieldName==="pan_number"||s.fieldName==="occupation"||s.fieldName==="age"){
+            return s
+          }
+        })
+        filterpackageDTOs.map((person) => {
           personaldetails.push({
             fieldName: person.fieldName,
             fieldId: person.fieldId,
