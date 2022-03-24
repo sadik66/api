@@ -18,7 +18,7 @@
     margin-right: 12px;
 }
 
-.one {
+.circle-red {
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -27,55 +27,64 @@
     background-color: #DFE2E6;
 }
 .one-active{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    margin-right: 5px;
     background-color: #EB6E7F;
     color: #fff;
 }
 .extra-width{
     width: 122px;
 }
-.two {
+.title-red {
     font-size: 19.94px;
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
     line-height: 24px;
-    /* identical to box height, or 171% */
-
-
-    /* Primary/Default */
-
     color:#000;
 }
 
 .two-active{
+    font-size: 19.94px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
     color: #EB6E7F;
 }
 /* empty div */
 
 .main-empty-div{
     width: 794px;
-}
-.empty-div {
-    /* position: absolute;
-    width: 800px;
-    height: 4px;
-    left: 323px;
-    top: 193px; */
-
     background: #DFE2E6;
     border-radius: 2px;
     display: flex;
     height: 4px;
-
 }
 
 .sub-empty-div {
-    width: 100%;
+    width: 100%; 
     height: 4px;
-
-    /* Primary/Default */
     background: #DFE2E6;
-
+    border-radius: 2px;
+    margin-right: 3px;
+}
+.sub-empty-div-two {
+    margin-left: 41px;
+    width: 100%; 
+    height: 4px;
+    background: #DFE2E6;
+    border-radius: 2px;
+    margin-right: 3px;
+}
+.sub-empty-div-four {
+    margin-left: 34px;
+    width: 100%; 
+    height: 4px;
+    background: #DFE2E6;
     border-radius: 2px;
     margin-right: 3px;
 }

@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react"
-import { useHistory,/* useParams */useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 
 import Input from "../textInput";
 import DateInput from "../dateInput";
 import Select from "../select";
 import NumberInput from "../numberInput";
-import Stepper from "../stepper";
 
 import "./personalInfo.css"
-
-import logo from "../../assets/logo.png"
 
 import { ACTIVE_KYC_ID } from "../../constants";
 import { getCustomerKyc, getKycDefination, submitKyc } from "../../services/kyc-service";
@@ -19,7 +16,6 @@ import { toast } from "react-toastify";
 
 const PersonalInfoEdit = () => {
   const history = useHistory();
-  const location = useLocation();
 
   const params = {
     id: ACTIVE_KYC_ID,
@@ -89,14 +85,14 @@ const PersonalInfoEdit = () => {
       if (status === 200 && data) {
         let response = data.data.packagesDTOs;
         let personalInfo = response.find(obj => obj.packageId === "61d847683fe3296a7c7c40ca");
-        const packageDTOs = personalInfo.children;        
+        const packageDTOs = personalInfo.children;
         const packageTitle = personalInfo.packageTitle;
         const personaldetails = [];
         const showerrors = {};
-        let filterpackageDTOs=packageDTOs.filter((s)=>{
-          if(s.fieldName==="first_name" || s.fieldName==="middle_name"|| s.fieldName==="last_name"||
-              s.fieldName==="date_of_birth"||s.fieldName==="gender"||s.fieldName==="marital_status"||
-              s.fieldName==="pan_number"||s.fieldName==="occupation"||s.fieldName==="age"){
+        let filterpackageDTOs = packageDTOs.filter((s) => {
+          if (s.fieldName === "first_name" || s.fieldName === "middle_name" || s.fieldName === "last_name" ||
+            s.fieldName === "date_of_birth" || s.fieldName === "gender" || s.fieldName === "marital_status" ||
+            s.fieldName === "pan_number" || s.fieldName === "occupation" || s.fieldName === "age") {
             return s
           }
         })
@@ -129,13 +125,13 @@ const PersonalInfoEdit = () => {
   }, [age])
 
   useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit===true) {
+    if (Object.keys(formErrors).length === 0 && isSubmit === true) {
       createKyc(personalFormValues)
-     // history.push("/personaldetails")
-     history.push({
-      pathname: `/personalInfo`,query:personalFormValues
-       }
-     )
+      // history.push("/personaldetails")
+      history.push({
+        pathname: `/personalInfo`, query: personalFormValues
+      }
+      )
     }
   }, [formErrors, isSubmit]);
 
@@ -210,19 +206,7 @@ const PersonalInfoEdit = () => {
 
   let errorValues = Object.values(formErrors)
   return (
-    <div className="root-body">
-      <div className="nav-bar">
-        <div className="nav-child"><img src={logo} alt="logo" /></div>
-      </div>
-
       <div className="body">
-      <div className='order-list '>
-                    <Stepper></Stepper>
-                </div>
-        <div className="tog-list">
-          <p>personal info</p>
-        </div>
-
         <div className=" form-container">
           <div className="sub-container">
             <h2>Personal Info</h2>
@@ -303,11 +287,11 @@ const PersonalInfoEdit = () => {
         </div>
 
         <div className="buttons">
-          <button className="btn1" onClick={() => { history.push("/personaldetails") }} disabled={response!==null?false:true}>Discard Change</button>
-          <button className="btn2" onClick={handlesubmit}>{response!==null?"Update":"submit"}</button>
+          <button className="btn1" onClick={() => { history.push("/personaldetails") }} disabled={response !== null ? false : true}>Discard Change</button>
+          <button className="btn2" onClick={handlesubmit}>{response !== null ? "Update" : "submit"}</button>
         </div>
       </div>
-    </div>
+    
   );
 }
 export default PersonalInfoEdit;

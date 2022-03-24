@@ -58,21 +58,7 @@ p {
 }
 /* order list */
 
-.order-list {
-  display: flex;
-  justify-content: center;
-  max-width: 100%;
-  width: 794px;
-}
-.order-list p {
-  margin-right: 35px;
-  margin-top: 30px;
-  font-size: 20px;
-}
 
-.tog-list {
-  display: none;
-}
 @media screen and (max-width: 800px) {
   .show{
     display: inline-block;
@@ -80,12 +66,7 @@ p {
     height: 30px;
     background-color: red;
   }
-  .order-list {
-    display: none;
-  }
-  .tog-list {
-    display: block;
-  }
+  
   .root-body {
     height: 1255px;
   }
@@ -104,9 +85,7 @@ p {
     margin: 10px;
     overflow: hidden;
   }
-  .order-list {
-    overflow: auto;
-  }
+ 
   /* .buttons {
     width: 300px;
   } */

@@ -2,9 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import RouterComponent from "./routes"
+import Context from "./components/context"
 
 ReactDOM.render(
-    <RouterComponent/>,
+  <Context>
+    <RouterComponent/>
+  </Context>,
     
   document.getElementById('root')
 );
