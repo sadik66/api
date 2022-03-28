@@ -130,7 +130,7 @@ const PersonalInfoEdit = () => {
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit === true) {
-      createKyc(personalFormValues)
+      createOrUpdateKyc(personalFormValues)
       // history.push("/personaldetails")
       history.push({
         pathname: `/personalInfo`, query: personalFormValues
@@ -140,7 +140,7 @@ const PersonalInfoEdit = () => {
   }, [formErrors, isSubmit]);
 
 
-  const createKyc = async (personalFormValues) => {
+  const createOrUpdateKyc = async (personalFormValues) => {
     let postData = {
       kycId: ACTIVE_KYC_ID,
       created_by: getCookie("phoneNumber"),
@@ -213,7 +213,7 @@ const PersonalInfoEdit = () => {
     <div className="body">
       <div className=" form-container">
         <div className="sub-container">
-          <h2>Personal Info</h2>
+          <h2>{title}</h2>
           <form className="main-form" >
             {
               personalInfoDetails && personalInfoDetails.map((person) => {

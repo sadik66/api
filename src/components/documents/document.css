@@ -57,7 +57,9 @@
 }
 
 
-.document-radio-type input {
+
+
+.document-checkbox-type input {
     margin-right: 10px;
     width: 15px;
     height: 15px;
@@ -74,12 +76,12 @@
     color: #666666;
 }
 
-.document-radio-type span {
+.document-checkbox-type span {
     margin-right: 25px;
     align-items: center;
 }
 
-.document-radio-type {
+.document-checkbox-type {
     margin-bottom: 10px;
 }
 
@@ -257,7 +259,8 @@ h2 {
         overflow: hidden;
     }
 
-    .document-radio-type .main-span {
+    
+    .document-checkbox-type .main-span {
         display: block;
     }
 

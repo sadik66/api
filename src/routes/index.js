@@ -41,7 +41,7 @@ const RouterComponent = () => {
                     </div>
                 </div>
                 <Switch>
-                    <Route exact path="/login" component={(props) => <Login {...props} />} />
+                    <Route exact path="/" component={(props) => <Login {...props} />} />
                     <Route exact path="/otp" component={(props) => <SubmitOtp {...props} />} />
                     <Route exact path="/personaldetails" component={(props) => <PersonalDetails {...props} />} />
                     <Route path="/personaldetailsForm" component={(props) => <PersonalInfoEdit {...props} />} />

@@ -67,7 +67,7 @@ const PersonalInfo = () => {
       <div className=" details-container">
         <div className="sub-container">
           <div className="edit-button-div">
-            <h2>Personal Details</h2>
+            <h2>Personal KYC</h2>
             <button className="edit" onClick={() => { history.push(`/personaldetailsForm`) }}>Edit</button>
           </div>
           <div className="main-form">

@@ -1,14 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { toast } from "react-toastify"
 
 import imageCompression from "browser-image-compression"
+
+import RadioInput from '../radioInput';
 
 import "./document.css"
 
 import image from "../../assets/Image.svg"
 
+import { getCookie } from '../../utils/cookie-helper';
 import { ACTIVE_KYC_ID, KYC_ACCESS_TOKEN } from '../../constants';
-import { getKycDefination, uploadKyc } from '../../services/kyc-service';
-import RaadioInput from '../radioInput';
+import { getKycDefination, uploadKyc, submitKyc } from '../../services/kyc-service';
 
 const Documents = () => {
     const hiddenFrontFileInput = useRef(null);
@@ -21,16 +24,27 @@ const Documents = () => {
     const [documentVersion, setDocumentVersion] = useState("")
     const [title, setTitle] = useState("")
     const [Documents, setDocuments] = useState([]);
-    const [documentType, setDocumentType] = useState('');
     const [additionalInfo, setAdditionalInfo] = useState('');
     //const [documentOptions,setDocumentOptions]=useState()
     const [frontFileTypes, setfrontFileTypes] = useState([]);
     const [backFileTypes, setBackFileTypes] = useState([]);
     const [selfieFileTypes, setSelfieFileTypes] = useState([]);
 
+    const [frontName, setFrontName] = useState('');
+    const [backName, setBackName] = useState('');
+    const [selfieName, setSelfieName] = useState('');
+
+    const [documentType, setDocumentType] = useState('');
     const [frontFileName, setFrontFileName] = useState("")
     const [backFileName, setBackFileName] = useState("")
     const [selfieFileName, setSelfieFileName] = useState("")
+
+    const [frontExtension, setFrontExtension] = useState('')
+    const [backExtension, setBackExtension] = useState('')
+    const [selfieExtension, setSelfieExtension] = useState('')
+
+    const [showError, setShowError] = useState({})
+    const [showFileError, setShowFileError] = useState({})
 
     const params = {
         id: ACTIVE_KYC_ID,
@@ -106,9 +120,9 @@ const Documents = () => {
         setDocumentType(e.target.value);
     };
 
-    const handleAdditionalInfoChange=(e)=>{
-        const {name,value}=e.target;
-        setAdditionalInfo({...additionalInfo,[name]:value})
+    const handleAdditionalInfoChange = (e) => {
+        const { name, value } = e.target;
+        setAdditionalInfo({ ...additionalInfo, [name]: value })
     }
 
     const handleChangeFront = async (event) => {
@@ -116,8 +130,11 @@ const Documents = () => {
         let newFrontFile;
         const file = event.target.files[0];
         const fileName = file.name;
+        console.log(fileName)
+        setFrontName(fileName)
         const fileSize = file.size
         const fileNameExtension = file.name.split('.').pop()
+        setFrontExtension(fileNameExtension)
         const options = {
             maxSizeMB: 0.5,
             useWebWorker: true
@@ -138,7 +155,7 @@ const Documents = () => {
             console.log(error)
         }
         else {
-            if (status === 200 && data) {
+            if (status === 200 && data.data) {
                 setFrontFileName(data.data.fileName)
             }
         }
@@ -149,8 +166,12 @@ const Documents = () => {
         let newBackFile;
         const file = event.target.files[0];
         const fileName = file.name;
+        setBackName(fileName)
+
+        console.log(fileName)
         const fileSize = file.size
-        const fileNameExtension = file.name.split('.').pop()
+        const fileNameExtension = file.name.split('.').pop();
+        setBackExtension(fileNameExtension)
         const options = {
             maxSizeMB: 0.5,
             useWebWorker: true
@@ -173,7 +194,7 @@ const Documents = () => {
             console.log(error)
         }
         else {
-            if (status === 200 && data) {
+            if (status === 200 && data.data) {
                 setBackFileName(data.data.fileName)
             }
         }
@@ -185,8 +206,10 @@ const Documents = () => {
         let newSelfieFile;
         const file = event.target.files[0];
         const fileName = file.name;
+        setSelfieName(fileName)
         const fileSize = file.size
-        const fileNameExtension = file.name.split('.').pop()
+        const fileNameExtension = file.name.split('.').pop();
+        setSelfieExtension(fileNameExtension)
         const options = {
             maxSizeMB: 0.5,
             useWebWorker: true
@@ -209,7 +232,7 @@ const Documents = () => {
             console.log(error)
         }
         else {
-            if (status === 200 && data) {
+            if (status === 200 && data.data) {
                 setSelfieFileName(data.data.fileName)
             }
         }
@@ -224,6 +247,112 @@ const Documents = () => {
     const handleClickSelfie = event => {
         hiddenSelfieFileInput.current.click();
     };
+
+    const checkMandatory = (fieldName) => {
+        let Mandate = Documents.find((doc) => doc.fieldName === fieldName)
+        return Mandate.mandatory
+    }
+
+    const nextPage = () => {
+        console.log(frontFileName === backFileName)
+        if (checkMandatory("document_type") && !documentType) {
+            setShowFileError({
+                ...showFileError,
+                type: true,
+                message: "please select document type"
+            })
+        } else if (checkMandatory("document_front") && !frontFileName) {
+            setShowFileError({
+                ...showFileError,
+                front: true,
+                message: "please upload front image"
+            })
+        } else if (checkMandatory("document_front") && !frontFileTypes.includes(frontExtension)) {
+            setShowFileError({
+                ...showFileError,
+                front: true,
+                message: " front image extension with .png , .pdf or .jpeg"
+            })
+        }else if (checkMandatory("document_back") && !backFileName) {
+            setShowFileError({
+                ...showFileError,
+                back: true,
+                message: "please upload back image"
+            })
+        } else if (checkMandatory("document_back") && !backFileTypes.includes(backExtension)) {
+            setShowFileError({
+                ...showFileError,
+                back: true,
+                message: " back image extension with .png , .pdf or .jpeg"
+            })
+        }else if (checkMandatory("document_back") && frontName && backName && frontName===backName) {
+            setShowFileError({
+                ...showFileError,
+                frontback: true,
+                message: " choose different back image"
+            })
+        } else if (checkMandatory("selfie") && !selfieFileName) {
+            setShowFileError({
+                ...showFileError,
+                selfie: true,
+                message: "please upload selfie image"
+            })
+        } else if (checkMandatory("document_back") && !selfieFileTypes.includes(selfieExtension)) {
+            setShowFileError({
+                ...showFileError,
+                back: true,
+                message: " selfie image extension with .png , .pdf or .jpeg"
+            })
+        }else if (checkMandatory("selfie") && backName && selfieName && selfieName===backName) {
+            setShowFileError({
+                ...showFileError,
+                frontback: true,
+                message: " choose different selfie image"
+            })
+        }else if (checkMandatory("declare_additional_info") && !additionalInfo.declare_additional_info) {
+            setShowFileError({
+                ...showFileError,
+                declare_additional_info: true,
+                message: "please check the declare additional info"
+            })
+        } else if (checkMandatory("is_fast_forward_allowed") && !additionalInfo.is_fast_forward_allowed) {
+            setShowFileError({
+                ...showFileError,
+                is_fast_forward_allowed: true,
+                message: "please check the fast forward allowed"
+            })
+        } else {
+            setShowFileError({})
+            createOrUpdateKyc();
+
+        }
+    }
+
+    const createOrUpdateKyc = async () => {
+        let Data = {}
+        Data["document_type"] = documentType;
+        Data["document_front"] = frontFileName;
+        Data["document_back"] = backFileName;
+        Data["selfie"] = selfieFileName;
+        Data["declare_additional_info"] = additionalInfo.declare_additional_info
+        Data["is_fast_forward_allowed"] = additionalInfo.is_fast_forward_allowed
+
+
+        let postData = {
+            kycId: ACTIVE_KYC_ID,
+            created_by: getCookie("phoneNumber"),
+            data: Data,
+            version: documentVersion
+        }
+        console.log(postData)
+
+        const { status, data, error } = await submitKyc(postData);
+        if (error) {
+            toast.error(error.message)
+        } else if (status === 200 && data) {
+            console.log("document submit", data)
+        }
+    }
     return (
         <div className="body">
             <div className=" documents-container">
@@ -236,9 +365,8 @@ const Documents = () => {
                             switch (document.fieldName) {
                                 case "document_type":
                                     return (
-                                        /*  handleChange, fieldDisplayName, fieldName, mandatory,options */
                                         <div key={document.fieldName}>
-                                            <RaadioInput
+                                            <RadioInput
                                                 handleChange={handleChange}
                                                 fieldDisplayName={document.fieldDisplayName}
                                                 fieldName={document.fieldName}
@@ -352,27 +480,41 @@ const Documents = () => {
                                     switch (document.fieldName) {
                                         case "declare_additional_info":
                                             return (
-                                                <div key={document.fieldName}>
-                                                    <RaadioInput
-                                                        handleChange={handleAdditionalInfoChange}
-                                                        fieldDisplayName={document.fieldDisplayName}
-                                                        fieldName={document.fieldName}
-                                                        mandatory={document.mandatory}
-                                                        options={document.options}
-                                                    />
+                                                <div className='document-checkbox-type' key={document.fieldName}>
+                                                    <div className='document-type'>
+                                                        <b>{document.fieldDisplayName}<span className='mandatory-section'>{document.mandatory ? "*" : ""}</span></b>
+                                                    </div>
+                                                    <div className='document-checkbox-type'>
+                                                        {
+                                                            document.options.map((option) => {
+                                                                return (
+                                                                    <span className='main-span' key={option.value}>
+                                                                        <span className='main-span'><input type='checkbox' name={document.fieldName} value={option.value} onClick={handleAdditionalInfoChange} /><span>{option.display}</span></span>
+                                                                    </span>
+                                                                )
+                                                            })
+                                                        }
+                                                    </div>
                                                 </div>
                                             );
                                         case "is_fast_forward_allowed":
                                             return (
-                                                <div key={document.fieldName}>
-                                                    <RaadioInput
-                                                        handleChange={handleAdditionalInfoChange}
-                                                        fieldDisplayName={document.fieldDisplayName}
-                                                        fieldName={document.fieldName}
-                                                        mandatory={document.mandatory}
-                                                        options={document.options}
-                                                    />
+                                                <div className='document-checkbox-type' key={document.fieldName}>
+                                                <div className='document-type'>
+                                                    <b>{document.fieldDisplayName}<span className='mandatory-section'>{document.mandatory ? "*" : ""}</span></b>
                                                 </div>
+                                                <div className='document-checkbox-type'>
+                                                    {
+                                                        document.options.map((option) => {
+                                                            return (
+                                                                <span className='main-span' key={option.value}>
+                                                                    <span className='main-span'><input type='checkbox' name={document.fieldName} value={option.value} onClick={handleAdditionalInfoChange} /><span>{option.display}</span></span>
+                                                                </span>
+                                                            )
+                                                        })
+                                                    }
+                                                </div>
+                                            </div>
                                             );
                                         default:
                                             break;
@@ -381,13 +523,13 @@ const Documents = () => {
                             }
                         </div>
                     </div>
-                    {error ? <div className="document-error">{error}</div> : <div className="document-no-error"></div>}
+                    {Object.keys(showFileError).length !== 0 ? <div className="document-error">{showFileError.message}</div> : <div className="document-no-error"></div>}
                 </div>
             </div>
             <div className="documents-buttons-main-div">
                 <div className="documents-buttons">
                     <button className="btn-pre" >Previous</button>
-                    <button className={error !== null ? "btn-dis" : "btn-en"} disabled={checkboxToggle} >Continue</button>
+                    <button className={error === null ? "btn-dis" : "btn-en"} disabled={!checkboxToggle} onClick={nextPage}>Continue</button>
                 </div>
             </div>
         </div>

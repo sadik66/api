@@ -105,13 +105,13 @@ const Stepper = () => {
                 </div>
             </div>
             <div className='main-empty-div'>
-                <div className={`${allClasses.one}`} ></div>
-                <div className={`${allClasses.two}`} ></div>
-                <div className={`${allClasses.three}`} ></div>
-                <div className={`${allClasses.four} `}></div>
-                <div className={`${allClasses.five}`}></div>
-                <div className={`${allClasses.six}`}></div>
-                <div className={`${allClasses.seven}`}></div>
+                <div className={`${allClasses.one} first-div`} ></div>
+                <div className={`${allClasses.two} second-div`}></div>
+                <div className={`${allClasses.three} third-div`} ></div>
+                <div className={`${allClasses.four} four-div`}></div>
+                <div className={`${allClasses.five} fifth-div`}></div>
+                <div className={`${allClasses.six} six-div`} ></div>
+                <div className={`${allClasses.seven} seventh-div`}></div>
             </div>
         </div>
 

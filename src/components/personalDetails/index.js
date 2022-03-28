@@ -1,4 +1,5 @@
 import React,{useEffect,useState} from "react"
+import { toast } from "react-toastify";
 
 import PersonalInfoEdit from "./personalInfoEdit";
 import PersonalInfo from "./personalInfo";
@@ -6,7 +7,6 @@ import PersonalInfo from "./personalInfo";
 import { getCookie } from "../../utils/cookie-helper";
 import { getCustomerKyc } from "../../services/kyc-service";
 
-import { toast } from "react-toastify";
 import { ACTIVE_KYC_ID } from "../../constants";
 
 const PersonalDetails=()=>{
