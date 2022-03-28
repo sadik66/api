@@ -10,6 +10,8 @@ export const KYC_SUBMIT_RESPONSE = `${KYC_BASE_URL}/kyc2/kycFieldResponse`;
 
 export const GET_KYC_RESPONSE_BODY = `${KYC_BASE_URL}/kyc2/kycResponseBody`
 
+export const UPLOAD_DOCUMENT = `${KYC_BASE_URL}/kyc2/uploadField`
+
 export const getKycDefinationUrl=(params=null)=>{
     let url=`${GET_KYC_DEFINATION }`;
     if(params){

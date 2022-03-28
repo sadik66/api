@@ -50,6 +50,7 @@ const RouterComponent = () => {
                 </Switch>
             </div>
         </BrowserRouter>
+        
     )
 }
 export default RouterComponent;

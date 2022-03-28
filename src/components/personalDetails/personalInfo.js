@@ -3,6 +3,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import "./personalInfo.css"
+import "../../styles/common.css"
 
 import { ACTIVE_KYC_ID } from "../../constants";
 
@@ -62,7 +63,6 @@ const PersonalInfo = () => {
     }
   }
   return (
-
     <div className="body">
       <div className=" details-container">
         <div className="sub-container">
@@ -123,10 +123,16 @@ const PersonalInfo = () => {
         </div>
       </div>
 
-      <div className="buttons">
+      {/* <div className="buttons">
         <button className="btn-pre" >Previous</button>
         <button className={checkboxToggle ? "btn-dis" : "btn-en"} disabled={checkboxToggle} >Continue</button>
-      </div>
+      </div> */}
+      <div className="documents-buttons-main-div">
+                <div className="documents-buttons">
+                    <button className="btn-pre" >Previous</button>
+                    <button className={checkboxToggle ? "btn-dis" : "btn-en"} disabled={checkboxToggle} >Continue</button>
+                </div>
+            </div>
     </div>
 
   );

@@ -26,6 +26,7 @@ export const sendRequest = async (args) => {
       headers: headerParams,
       url: url
     });
+    console.log(response)
     return response;
   } catch (error) {
     if (error.message === 'Network Error') {
@@ -66,6 +67,7 @@ export const postRequest = async (args) => {
     ...args,
     method: 'post'
   });
+  console.log( data, headers, error, status)
   if ([200, 201, 204].indexOf(status) > -1) {
     return {
       data,

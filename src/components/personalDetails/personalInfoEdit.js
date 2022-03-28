@@ -8,6 +8,7 @@ import Select from "../select";
 import NumberInput from "../numberInput";
 
 import "./personalInfo.css"
+import "../../styles/common.css"
 
 import { ACTIVE_KYC_ID } from "../../constants";
 import { getCustomerKyc, getKycDefination, submitKyc } from "../../services/kyc-service";
@@ -84,7 +85,10 @@ const PersonalInfoEdit = () => {
     } else {
       if (status === 200 && data) {
         let response = data.data.packagesDTOs;
-        let personalInfo = response.find(obj => obj.packageId === "61d847683fe3296a7c7c40ca");
+    console.log(response)
+
+        let personalInfo = response.find(obj => obj.id === "61d847683fe3296a7c7c40ca");
+        console.log(personalInfo)
         const packageDTOs = personalInfo.children;
         const packageTitle = personalInfo.packageTitle;
         const personaldetails = [];
@@ -206,92 +210,94 @@ const PersonalInfoEdit = () => {
 
   let errorValues = Object.values(formErrors)
   return (
-      <div className="body">
-        <div className=" form-container">
-          <div className="sub-container">
-            <h2>Personal Info</h2>
-            <form className="main-form" >
-              {
-                personalInfoDetails && personalInfoDetails.map((person) => {
-                  switch (person.type) {
-                    case "TEXT":
-                      return (
-                        <div key={person.fieldName}>
-                          <Input
-                            handleChange={handleChange}
-                            fieldDisplayName={person.fieldDisplayName}
-                            values={personalFormValues}
-                            fieldName={person.fieldName}
-                            mandatory={person.mandatory}
-                            showErrors={showErrors}
-                          />
-                        </div>
-                      );
-                    case "CALENDAR":
-                      return (
-                        <div key={person.fieldName}>
-                          <DateInput
-                            handleChange={handleChange}
-                            fieldDisplayName={person.fieldDisplayName}
-                            values={personalFormValues}
-                            fieldName={person.fieldName}
-                            mandatory={person.mandatory}
-                            showErrors={showErrors}
-                          />
+    <div className="body">
+      <div className=" form-container">
+        <div className="sub-container">
+          <h2>Personal Info</h2>
+          <form className="main-form" >
+            {
+              personalInfoDetails && personalInfoDetails.map((person) => {
+                switch (person.type) {
+                  case "TEXT":
+                    return (
+                      <div key={person.fieldName}>
+                        <Input
+                          handleChange={handleChange}
+                          fieldDisplayName={person.fieldDisplayName}
+                          values={personalFormValues}
+                          fieldName={person.fieldName}
+                          mandatory={person.mandatory}
+                          showErrors={showErrors}
+                        />
+                      </div>
+                    );
+                  case "CALENDAR":
+                    return (
+                      <div key={person.fieldName}>
+                        <DateInput
+                          handleChange={handleChange}
+                          fieldDisplayName={person.fieldDisplayName}
+                          values={personalFormValues}
+                          fieldName={person.fieldName}
+                          mandatory={person.mandatory}
+                          showErrors={showErrors}
+                        />
 
-                        </div>
-                      );
-                    case "NUMBER":
-                      return (
-                        <div key={person.fieldName}>
-                          <NumberInput
-                            handleChange={handleChange}
-                            fieldDisplayName={person.fieldDisplayName}
-                            values={age}
-                            fieldName={person.fieldName}
-                            mandatory={person.mandatory}
-                            showErrors={showErrors}
+                      </div>
+                    );
+                  case "NUMBER":
+                    return (
+                      <div key={person.fieldName}>
+                        <NumberInput
+                          handleChange={handleChange}
+                          fieldDisplayName={person.fieldDisplayName}
+                          values={age}
+                          fieldName={person.fieldName}
+                          mandatory={person.mandatory}
+                          showErrors={showErrors}
 
-                          />
+                        />
 
-                        </div>
-                      );
-                    case "RADIO":
-                      return (
-                        <div key={person.fieldName}>
-                          <Select
-                            handleChange={handleChange}
-                            fieldDisplayName={person.fieldDisplayName}
-                            values={personalFormValues}
-                            fieldName={person.fieldName}
-                            options={person.options}
-                            mandatory={person.mandatory}
-                            showErrors={showErrors}
-                          />
-                        </div>
-                      );
-                    default:
-                      break;
-                  }
-                })
-              }
-            </form>
-            <div className={Object.keys(formErrors).length !== 0 ? "show" : "hide"}>
-              {
-                errorValues && errorValues.map((error, i) => {
-                  if (i === 0) return (<span>{error} </span>)
-                })
-              }
-            </div>
+                      </div>
+                    );
+                  case "RADIO":
+                    return (
+                      <div key={person.fieldName}>
+                        <Select
+                          handleChange={handleChange}
+                          fieldDisplayName={person.fieldDisplayName}
+                          values={personalFormValues}
+                          fieldName={person.fieldName}
+                          options={person.options}
+                          mandatory={person.mandatory}
+                          showErrors={showErrors}
+                        />
+                      </div>
+                    );
+                  default:
+                    break;
+                }
+              })
+            }
+          </form>
+          <div className={Object.keys(formErrors).length !== 0 ? "show" : "hide"}>
+            {
+              errorValues && errorValues.map((error, i) => {
+                if (i === 0) return (<span>{error} </span>)
+              })
+            }
           </div>
         </div>
+      </div>
 
-        <div className="buttons">
-          <button className="btn1" onClick={() => { history.push("/personaldetails") }} disabled={response !== null ? false : true}>Discard Change</button>
-          <button className="btn2" onClick={handlesubmit}>{response !== null ? "Update" : "submit"}</button>
+      <div className="documents-buttons-main-div">
+        <div className="documents-buttons">
+          <button className="btn-pre" onClick={() => { history.push("/personaldetails") }} disabled={response !== null ? false : true}>Discard Change</button>
+          <button className="btn-en" onClick={handlesubmit}>{response !== null ? "Update" : "submit"}</button>
         </div>
       </div>
-    
+    </div>
+
   );
 }
 export default PersonalInfoEdit;
