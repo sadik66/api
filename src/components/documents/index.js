@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect,useContext } from 'react';
 import { toast } from "react-toastify"
 
 import imageCompression from "browser-image-compression"
@@ -8,12 +8,15 @@ import RadioInput from '../radioInput';
 import "./document.css"
 
 import image from "../../assets/Image.svg"
+import { Mycontext } from '../context';
 
 import { getCookie } from '../../utils/cookie-helper';
 import { ACTIVE_KYC_ID, KYC_ACCESS_TOKEN } from '../../constants';
 import { getKycDefination, uploadKyc, submitKyc } from '../../services/kyc-service';
 
 const Documents = () => {
+    const {setStepperTitle}=useContext(Mycontext)
+
     const hiddenFrontFileInput = useRef(null);
     const hiddenBackFileInput = useRef(null);
     const hiddenSelfieFileInput = useRef(null);
@@ -24,7 +27,7 @@ const Documents = () => {
     const [documentVersion, setDocumentVersion] = useState("")
     const [title, setTitle] = useState("")
     const [Documents, setDocuments] = useState([]);
-    const [additionalInfo, setAdditionalInfo] = useState('');
+    const [additionalInfo, setAdditionalInfo] = useState({ is_fast_forward_allowed: false, declare_additional_info: false });
     //const [documentOptions,setDocumentOptions]=useState()
     const [frontFileTypes, setfrontFileTypes] = useState([]);
     const [backFileTypes, setBackFileTypes] = useState([]);
@@ -43,7 +46,6 @@ const Documents = () => {
     const [backExtension, setBackExtension] = useState('')
     const [selfieExtension, setSelfieExtension] = useState('')
 
-    const [showError, setShowError] = useState({})
     const [showFileError, setShowFileError] = useState({})
 
     const params = {
@@ -53,6 +55,9 @@ const Documents = () => {
     useEffect(() => {
         fetchPersonalDocuments();
     }, [])
+     useEffect(() => {
+        setStepperTitle("documents")
+    }, []) 
     const fetchPersonalDocuments = async () => {
         const { data, status, error } = await getKycDefination(params);
         if (error) {
@@ -121,16 +126,15 @@ const Documents = () => {
     };
 
     const handleAdditionalInfoChange = (e) => {
-        const { name, value } = e.target;
-        setAdditionalInfo({ ...additionalInfo, [name]: value })
-    }
 
+        const { name, checked } = e.target;
+        setAdditionalInfo({ ...additionalInfo, [name]: checked })
+    }
     const handleChangeFront = async (event) => {
         let compressedFile;
         let newFrontFile;
         const file = event.target.files[0];
         const fileName = file.name;
-        console.log(fileName)
         setFrontName(fileName)
         const fileSize = file.size
         const fileNameExtension = file.name.split('.').pop()
@@ -168,7 +172,6 @@ const Documents = () => {
         const fileName = file.name;
         setBackName(fileName)
 
-        console.log(fileName)
         const fileSize = file.size
         const fileNameExtension = file.name.split('.').pop();
         setBackExtension(fileNameExtension)
@@ -187,7 +190,6 @@ const Documents = () => {
         backImageData.append("file", newBackFile)
         backImageData.append("kycId", ACTIVE_KYC_ID)
         backImageData.append("fieldId", "document_back")
-        console.log(backImageData)
 
         const { status, data, error } = await uploadKyc(backImageData)
         if (error) {
@@ -225,7 +227,6 @@ const Documents = () => {
         selfieImageData.append("file", newSelfieFile)
         selfieImageData.append("kycId", ACTIVE_KYC_ID)
         selfieImageData.append("fieldId", "selfie")
-        console.log(selfieImageData)
 
         const { status, data, error } = await uploadKyc(selfieImageData)
         if (error) {
@@ -254,7 +255,6 @@ const Documents = () => {
     }
 
     const nextPage = () => {
-        console.log(frontFileName === backFileName)
         if (checkMandatory("document_type") && !documentType) {
             setShowFileError({
                 ...showFileError,
@@ -273,7 +273,7 @@ const Documents = () => {
                 front: true,
                 message: " front image extension with .png , .pdf or .jpeg"
             })
-        }else if (checkMandatory("document_back") && !backFileName) {
+        } else if (checkMandatory("document_back") && !backFileName) {
             setShowFileError({
                 ...showFileError,
                 back: true,
@@ -285,7 +285,7 @@ const Documents = () => {
                 back: true,
                 message: " back image extension with .png , .pdf or .jpeg"
             })
-        }else if (checkMandatory("document_back") && frontName && backName && frontName===backName) {
+        } else if (checkMandatory("document_back") && frontName && backName && frontName === backName) {
             setShowFileError({
                 ...showFileError,
                 frontback: true,
@@ -303,13 +303,13 @@ const Documents = () => {
                 back: true,
                 message: " selfie image extension with .png , .pdf or .jpeg"
             })
-        }else if (checkMandatory("selfie") && backName && selfieName && selfieName===backName) {
+        } else if (checkMandatory("selfie") && backName && selfieName && selfieName === backName) {
             setShowFileError({
                 ...showFileError,
                 frontback: true,
                 message: " choose different selfie image"
             })
-        }else if (checkMandatory("declare_additional_info") && !additionalInfo.declare_additional_info) {
+        } else if (checkMandatory("declare_additional_info") && !additionalInfo.declare_additional_info) {
             setShowFileError({
                 ...showFileError,
                 declare_additional_info: true,
@@ -344,8 +344,6 @@ const Documents = () => {
             data: Data,
             version: documentVersion
         }
-        console.log(postData)
-
         const { status, data, error } = await submitKyc(postData);
         if (error) {
             toast.error(error.message)
@@ -353,6 +351,7 @@ const Documents = () => {
             console.log("document submit", data)
         }
     }
+
     return (
         <div className="body">
             <div className=" documents-container">
@@ -392,7 +391,7 @@ const Documents = () => {
                                                         <div className='hun-text-child'>{document.fieldDisplayName}<span className='mandatory-section'>{document.mandatory ? "*" : ""}</span></div>
                                                         <div className='hun-text-child'>{frontFileName ? <span className='hun-text-change' onClick={handleClickFront}>Change</span> : ''}</div>
                                                     </div>
-                                                    {frontFileName === '' ? <div className='document-front' onClick={handleClickFront}>
+                                                    {frontFileName === '' ? <div className='document-front' onClick={handleClickFront} >
                                                         <img src={image} alt="upload" width="60px"></img>
                                                         <h3 >Drop your image here,or <span className='span'>Browse</span></h3>
                                                         <span className='mar-span'>Only .jpg or .png files,500kb max file size</span>
@@ -482,39 +481,27 @@ const Documents = () => {
                                             return (
                                                 <div className='document-checkbox-type' key={document.fieldName}>
                                                     <div className='document-type'>
-                                                        <b>{document.fieldDisplayName}<span className='mandatory-section'>{document.mandatory ? "*" : ""}</span></b>
-                                                    </div>
-                                                    <div className='document-checkbox-type'>
-                                                        {
-                                                            document.options.map((option) => {
-                                                                return (
-                                                                    <span className='main-span' key={option.value}>
-                                                                        <span className='main-span'><input type='checkbox' name={document.fieldName} value={option.value} onClick={handleAdditionalInfoChange} /><span>{option.display}</span></span>
-                                                                    </span>
-                                                                )
-                                                            })
-                                                        }
+                                                        <b>
+                                                            <label className="checkbox-container">
+                                                                <input type="checkbox"name={document.fieldName} onChange={handleAdditionalInfoChange}/> {document.fieldDisplayName}<span className='mandatory-section'>{document.mandatory ? "*" : ""}</span>
+                                                                <span className="checkbox-checkmark"></span>
+                                                            </label>
+                                                        </b>
                                                     </div>
                                                 </div>
                                             );
                                         case "is_fast_forward_allowed":
                                             return (
                                                 <div className='document-checkbox-type' key={document.fieldName}>
-                                                <div className='document-type'>
-                                                    <b>{document.fieldDisplayName}<span className='mandatory-section'>{document.mandatory ? "*" : ""}</span></b>
+                                                    <div className='document-type'>
+                                                        <b>
+                                                            <label className="checkbox-container">
+                                                                <input type="checkbox" name={document.fieldName} onChange={handleAdditionalInfoChange}/> {document.fieldDisplayName}<span className='mandatory-section'>{document.mandatory ? "*" : ""}</span>
+                                                                <span className="checkbox-checkmark"></span>
+                                                            </label>
+                                                        </b>
+                                                    </div>
                                                 </div>
-                                                <div className='document-checkbox-type'>
-                                                    {
-                                                        document.options.map((option) => {
-                                                            return (
-                                                                <span className='main-span' key={option.value}>
-                                                                    <span className='main-span'><input type='checkbox' name={document.fieldName} value={option.value} onClick={handleAdditionalInfoChange} /><span>{option.display}</span></span>
-                                                                </span>
-                                                            )
-                                                        })
-                                                    }
-                                                </div>
-                                            </div>
                                             );
                                         default:
                                             break;

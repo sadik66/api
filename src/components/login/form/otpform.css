@@ -4,7 +4,6 @@
   width: 588px;
   height: 388px;
   background: #ffffff;
-  border: 2px solid black;
   border-radius: 6px;
   text-align: center;
   display: flex;
@@ -16,23 +15,24 @@
   width: 200px;
   height: 40px;
   text-align: center;
-  border: 1px solid #506de2;
+  border: 1px solid #EB6E7F;
   border-radius: 6px;
 }
 .margin{
   margin-bottom: 10px;
 }
 .error-div{
-  color: red;
+  color: #EB6E7F;
   margin-bottom: 20px;
 }
 .btn {
   max-width: 100%;
   width: 508px;
   height: 40px;
-  background-color: blue;
+  background-color: #EB6E7F;
   color: #fff;
   border-radius: 6px;
+  border: 0px;
 }
 
 @media screen and (max-width: 676px) {

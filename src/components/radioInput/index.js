@@ -2,9 +2,9 @@ import React from "react"
 
 import "./radioInput.css"
 
-const RaadioInput = ({ handleChange, fieldDisplayName, fieldName, mandatory,options}) => {
+const RaadioInput = ({ handleChange, fieldDisplayName, fieldName, mandatory, options }) => {
     return (
-        <div className='document-radio-type' key={fieldName}>
+        <div className='document-radio-type' >
             <div className='document-type'>
                 <b>{fieldDisplayName}<span className='mandatory-section'>{mandatory ? "*" : ""}</span></b>
             </div>
@@ -12,11 +12,12 @@ const RaadioInput = ({ handleChange, fieldDisplayName, fieldName, mandatory,opti
                 {
                     options.map((option) => {
                         return (
-                            <span className='main-span' key={option.value}>
-                                <span className='main-span'><input type='radio' name={fieldName }value={option.value} onClick={handleChange} /><span>{option.display}</span></span>
-                            </span>
+                            <label className="radio-container" key={option.value}>
+                                <input type="radio" name="radio" value={option.value} onChange={handleChange}/>{option.display}
+                                    <span className="checkmark"></span>
+                            </label>
                         )
-                    })
+                })
                 }
             </div>
         </div>

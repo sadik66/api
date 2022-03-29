@@ -35,7 +35,6 @@ const PersonalInfo = () => {
   useEffect(() => {
     fetchCustomerKyc();
   }, [query])
-
   const fetchCustomerKyc = async () => {
     const customerKycParams = {
       msisdn: getCookie("phoneNumber"),
@@ -118,21 +117,21 @@ const PersonalInfo = () => {
           </div>
           <hr></hr>
           <div>
-            <p className="confirm-msg"><input type="checkbox" className="checkbox" onChange={handleCheckBox} /> I confirm my personal details are correct</p>
+            <p className="confirm-msg">
+              <label className="checkbox-container">
+                <input type="checkbox" className="checkbox" onChange={handleCheckBox} /> I confirm my personal details are correct
+                <span className="checkbox-checkmark"></span>
+              </label>
+            </p>
           </div>
         </div>
       </div>
-
-      {/* <div className="buttons">
-        <button className="btn-pre" >Previous</button>
-        <button className={checkboxToggle ? "btn-dis" : "btn-en"} disabled={checkboxToggle} >Continue</button>
-      </div> */}
       <div className="documents-buttons-main-div">
-                <div className="documents-buttons">
-                    <button className="btn-pre" >Previous</button>
-                    <button className={checkboxToggle ? "btn-dis" : "btn-en"} disabled={checkboxToggle} >Continue</button>
-                </div>
-            </div>
+        <div className="documents-buttons">
+          <button className="btn-pre" >Previous</button>
+          <button className={checkboxToggle ? "btn-dis" : "btn-en"} disabled={checkboxToggle} >Continue</button>
+        </div>
+      </div>
     </div>
 
   );

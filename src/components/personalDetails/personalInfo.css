@@ -131,29 +131,20 @@ p {
   height: 40px;
 }
 
-.btn1{
-    background-color: #fff;
-    border-radius: 6px;
-}
-.btn2{
-    background-color: blue;
-    color:#fff;
-    border-radius: 6px;
-}
-
 .btn-pre{
   background-color: #fff;
-    color: blue;
+    color: #EB6E7F;
     border-radius: 6px;
-    border: 1px solid blue;
+    border: 1px solid #EB6E7F;
 }
 .btn-dis{
   border-radius: 6px;
 }
 .btn-en{
-  background-color: blue;
+  background-color: #EB6E7F;
     color:#fff;
     border-radius: 6px;
+    border: 0px;
 }
 
 /* sub-container */
@@ -252,9 +243,9 @@ p {
   .edit-button-div .edit{
       width: 100px;
       height: 40px;
-      border: 1px solid blue;
+      border: 1px solid #EB6E7F;
       border-radius: 6px;
-      color: blue;
+      color: #EB6E7F;
       font-size: 16px;
   }
 
@@ -273,8 +264,6 @@ p {
   /* validation */
 
   .show{
-  /*   display: block;
-    width: 728px; */
     height: 30px;
     background-color: lightpink;
     border-radius: 6px;

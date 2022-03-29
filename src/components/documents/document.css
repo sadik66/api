@@ -8,16 +8,6 @@
     padding: 20px;
 }
 
-/* .documents-root-body {
-    position: absolute;
-    width: 100%;
-    height: 752px;
-    left: 0px;
-    top: 0px;
-    background: #f6f8fe;
-} */
-
-
 .documents-upload-div {
     display: flex;
     max-width: 100%;
@@ -26,7 +16,7 @@
 }
 .additional-info-div{
     padding-left: 30px;
-    padding-top: 50px;
+    padding-top: 80px;
 }
 .document-front, .document-back {
     width: 100%;
@@ -34,31 +24,20 @@
     height: 210px;
     border: 2px solid red;
     border-style: dashed;
-    /*  text-align: center;
-    padding-top: 70px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    /* filter: drop-shadow(0px 0px 1px rgba(46, 91, 255, 0.45)) */
-    ;
     border-radius: 8px;
 
 }
-
 .document-front {
     margin-right: 25px;
 }
-
 .document-type {
     margin-top: 25px;
     margin-bottom: 10px;
 }
-
-
-
-
 .document-checkbox-type input {
     margin-right: 10px;
     width: 15px;
@@ -112,28 +91,23 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 24px;
-    /* identical to box height, or 171% */
     letter-spacing: 0.02em;
     color: #191919;
 
 }
-
 .hun-text-change {
     color: deepskyblue;
 }
-
 .document-type b {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 24px;
-    /* identical to box height, or 171% */
     letter-spacing: 0.02em;
     color: #191919;
 
 }
-
 .document-error {
     color: red;
     text-align: center;
@@ -142,7 +116,6 @@
     background-color: lightpink;
     border-radius: 6px;
 }
-
 .document-no-error {
     text-align: center;
     width: 100%;
@@ -150,7 +123,6 @@
     background-color: white;
     border-radius: 6px;
 }
-
 h2 {
     margin-top: 0px;
     font-family: 'Poppins';
@@ -158,54 +130,30 @@ h2 {
     font-weight: 500;
     font-size: 24px;
     line-height: 36px;
-    /* identical to box height, or 150% */
     color: #333333;
 }
-
 .document-front h3, .document-back h3 {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;
-    /* identical to box height */
-
     text-align: center;
     letter-spacing: 0.12px;
-
     color: #191919;
 
 }
-
 .span {
     color: lightskyblue;
 }
-
 .mar-span {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
     line-height: 18px;
-    /* identical to box height, or 150% */
-
-
     color: #999999;
 }
-
-/* .documents-buttons {
-    display: flex;
-    justify-content: space-between;
-    width: 794px;
-    max-width: 100%;
-    margin-top: 30px;
-} */
-
-/* .documents-buttons button {
-    width: 288px;
-    height: 40px;
-} */
-
 .documents-sub-container {
     width: 794px;
     max-width: 100%;
@@ -272,10 +220,6 @@ h2 {
 
     }
 
-   /*  .documents-root-body {
-        height: 975px;
-    } */
-
     .documents-buttons-main-div {
         width: 300px;
     }
@@ -285,9 +229,9 @@ h2 {
     }
     .additional-info-div{
         padding-left: 0px;
+        padding-top: 20px;
     }
 }
-
 
 .mandatory-section{
     color: red;
@@ -296,3 +240,53 @@ h2 {
 .image-tag{
     border-radius: 6px;
 }
+
+
+/* checkbox */
+/* The container */
+.checkbox-container {
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  .checkbox-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    border:2px solid #eee;
+  }
+  .checkbox-container input:checked ~ .checkbox-checkmark {
+    background-color: #EB6E7F;
+    border:0px;
+    height: 20px;
+    width: 20px;
+  }
+  .checkbox-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  .checkbox-container input:checked ~ .checkbox-checkmark:after {
+    display: block;
+  }
+  .checkbox-container .checkbox-checkmark:after {
+    left: 6px;
+    top: 2.7px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+  }
+  /* checkbox */

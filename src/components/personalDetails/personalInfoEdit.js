@@ -85,10 +85,7 @@ const PersonalInfoEdit = () => {
     } else {
       if (status === 200 && data) {
         let response = data.data.packagesDTOs;
-    console.log(response)
-
         let personalInfo = response.find(obj => obj.id === "61d847683fe3296a7c7c40ca");
-        console.log(personalInfo)
         const packageDTOs = personalInfo.children;
         const packageTitle = personalInfo.packageTitle;
         const personaldetails = [];

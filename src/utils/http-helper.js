@@ -3,13 +3,20 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 import {KYC_ACCESS_TOKEN} from "../constants"
+import { getCookie } from './cookie-helper';
 
 export const sendRequest = async (args) => {
   try {
-    const { url, headers, noAuth } = args;
+    const { url, headers, noAuth,baseUrl } = args;
     let headerParams = headers;
     if (!noAuth) {
-        let token=KYC_ACCESS_TOKEN;
+        let token;
+        if(baseUrl==='https://yabxdemo-in.yabx.co'){
+          token=getCookie("accessToken")
+        }
+        else{
+          token=KYC_ACCESS_TOKEN
+        }
       if (headers) {
         headerParams = {
           ...headers,
