@@ -7,31 +7,31 @@ import "./stepper.css"
 
 import check from "../../assets/Check.png"
 
-const Stepper = () => {
-    const {  setCount, setTitle,setPercentage ,stepperTitle} = useContext(Mycontext)
+const Stepper= (props) => {
+    const { setCount, setTitle, setPercentage } = useContext(Mycontext)
     let classes = {
         one: 'sub-empty-div',
-        personal_kyc: "sub-empty-div-two",
+        two: "sub-empty-div-two",
         three: "sub-empty-div",
-        documents: "sub-empty-div-four ",
+        four: "sub-empty-div-four ",
         five: "sub-empty-div ",
         six: "sub-empty-div ",
         seven: "sub-empty-div ",
     }
     let circleClasses = {
         one: 'circle-red',
-        personal_kyc: "circle-red ",
+        two: "circle-red ",
         three: "circle-red",
-        documents: "circle-red ",
+        four: "circle-red ",
         five: "circle-red ",
         six: "circle-red ",
         seven: "circle-red ",
     }
     let titleClasses = {
         one: 'title-red',
-        personal_kyc: "title-red ",
+        two: "title-red ",
         three: "title-red",
-        documents: "title-red ",
+        four: "title-red ",
         five: "title-red ",
         six: "title-red ",
         seven: "title-red",
@@ -39,41 +39,35 @@ const Stepper = () => {
     const [allClasses, setAllClasses] = useState(classes);
     const [allCircleClasses, setAllCircleClasses] = useState(circleClasses);
     const [allTitleClasses, setAllTitleClasses] = useState(titleClasses)
-    const [targetvalue, setTargetValue] = useState(0)
 
     useEffect(() => {
-        setAllClasses({ ...classes, documents: "sub-empty-div-two active" })
-        setAllCircleClasses({ ...circleClasses, personal_kyc: " one-active", one: " one-active" })
-        setAllTitleClasses({ ...titleClasses, personal_kyc: " two-active", one: "two-active" })
-    }, [stepperTitle])
-    useEffect(() => {
-        setAllClasses({ ...classes, personal_kyc: "sub-empty-div-two active" })
-        setAllCircleClasses({ ...circleClasses, personal_kyc: " one-active", one: " one-active" })
-        setAllTitleClasses({ ...titleClasses, personal_kyc: " two-active", one: "two-active" })
-    }, [])
+        if (props.count === 4) {
+            setAllCircleClasses({ ...allCircleClasses, one: "one-active", two: 'one-active', four: "one-active", three: 'one-active' })
+            setAllTitleClasses({ ...allTitleClasses, one: "two-active", two: "two-active", four: "two-active", three: "two-active" })
+            setAllClasses({ ...classes, four: "sub-empty-div-four active" })
+        } else if (props.count === 2) {
+            setAllCircleClasses({ ...allCircleClasses, one: "one-active", two: 'one-active' })
+            setAllTitleClasses({ ...allTitleClasses, one: "two-active", two: "two-active", })
+            setAllClasses({ ...classes, two: "sub-empty-div-four active" })
+        }
+
+
+    }, [props.count])
+
     const history = useHistory()
     const handleClick = (event, value) => {
-        setTargetValue(value)
         if (value === 2) {
             setCount(value)
             setPercentage("25%")
-            setTitle("Personal Info")
-            setAllClasses({ ...classes, personal_kyc: "sub-empty-div-two active" })
+            setTitle("Personal KYC")
             history.push('/personaldetails')
-            setAllCircleClasses({ ...circleClasses, personal_kyc: "one-active", one: " one-active" })
-            setAllTitleClasses({ ...titleClasses, personal_kyc: " two-active", one: "two-active" })
-
         }
         else if (value === 4) {
             setCount(value)
             setPercentage("60%")
             setTitle("Documents")
-            setAllCircleClasses({ ...allCircleClasses, documents: "one-active", three: 'one-active' })
-            setAllTitleClasses({ ...allTitleClasses, documents: "two-active", three: "two-active" })
-            setAllClasses({ ...classes, documents: "sub-empty-div-four active" })
             history.push('/documents')
         }
-
     }
     return (
 
@@ -84,16 +78,16 @@ const Stepper = () => {
                     <div className={`${allTitleClasses.one}`} onClick={(e) => { handleClick(e, 1) }}>Loan Info</div>
                 </div>
                 <div className="loan-info">
-                    <div className={`${allCircleClasses.personal_kyc}`}>{targetvalue === 4 ? <img src={check} alt="check" /> : 2}</div>
-                    <div className={`${allTitleClasses.personal_kyc}`} onClick={(e) => { handleClick(e, 2) }} >Personal Info</div>
+                    <div className={`${allCircleClasses.two}`}>{props.count === 4 ? <img src={check} alt="check" /> : 2}</div>
+                    <div className={`${allTitleClasses.two}`} onClick={(e) => { handleClick(e, 2) }} >Personal Info</div>
                 </div>
                 <div className="loan-info">
-                    <div className={`${allCircleClasses.three}`}>{targetvalue === 4 ? <img src={check} alt="check" /> : 3}</div>
+                    <div className={`${allCircleClasses.three}`}>{props.count === 4 ? <img src={check} alt="check" /> : 3}</div>
                     <div className={`${allTitleClasses.three}`} onClick={(e) => { handleClick(e, 3) }}>Address</div>
                 </div>
                 <div className="loan-info">
-                    <div className={`${allCircleClasses.documents}`}>4</div>
-                    <div className={`${allTitleClasses.documents}`} onClick={(e) => { handleClick(e, 4) }}>Documents</div>
+                    <div className={`${allCircleClasses.four}`}>4</div>
+                    <div className={`${allTitleClasses.four}`} onClick={(e) => { handleClick(e, 4) }}>Documents</div>
                 </div>
                 <div className="loan-info">
                     <div className={`${allCircleClasses.five}`}>5</div>
@@ -110,9 +104,9 @@ const Stepper = () => {
             </div>
             <div className='main-empty-div'>
                 <div className={`${allClasses.one} first-div`} ></div>
-                <div className={`${allClasses.personal_kyc} second-div`}></div>
+                <div className={`${allClasses.two} second-div`}></div>
                 <div className={`${allClasses.three} third-div`} ></div>
-                <div className={`${allClasses.documents} four-div`}></div>
+                <div className={`${allClasses.four} four-div`}></div>
                 <div className={`${allClasses.five} fifth-div`}></div>
                 <div className={`${allClasses.six} six-div`} ></div>
                 <div className={`${allClasses.seven} seventh-div`}></div>

@@ -4,18 +4,22 @@ import { toast } from "react-toastify"
 import imageCompression from "browser-image-compression"
 
 import RadioInput from '../radioInput';
+import Stepper from '../stepper';
 
 import "./document.css"
 
 import image from "../../assets/Image.svg"
+import logo from "../../assets/logo.png"
+
 import { Mycontext } from '../context';
 
 import { getCookie } from '../../utils/cookie-helper';
 import { ACTIVE_KYC_ID, KYC_ACCESS_TOKEN } from '../../constants';
 import { getKycDefination, uploadKyc, submitKyc } from '../../services/kyc-service';
 
+
 const Documents = () => {
-    const {setStepperTitle}=useContext(Mycontext)
+    const {setStepperTitle,title,setTitle,count ,percentage}=useContext(Mycontext)
 
     const hiddenFrontFileInput = useRef(null);
     const hiddenBackFileInput = useRef(null);
@@ -25,10 +29,8 @@ const Documents = () => {
     const [error, setError] = useState("")
 
     const [documentVersion, setDocumentVersion] = useState("")
-    const [title, setTitle] = useState("")
     const [Documents, setDocuments] = useState([]);
     const [additionalInfo, setAdditionalInfo] = useState({ is_fast_forward_allowed: false, declare_additional_info: false });
-    //const [documentOptions,setDocumentOptions]=useState()
     const [frontFileTypes, setfrontFileTypes] = useState([]);
     const [backFileTypes, setBackFileTypes] = useState([]);
     const [selfieFileTypes, setSelfieFileTypes] = useState([]);
@@ -353,6 +355,25 @@ const Documents = () => {
     }
 
     return (
+        <div className="root-body">
+        <div className="nav-bar">
+            <div className="nav-child"><img src={logo} alt="logo" /></div>
+        </div>
+        <div className="stepper-center">
+            <div className='order-list '>
+                <Stepper count={4}></Stepper>
+            </div>
+            <div className="tog-list">
+                <div className="mobile-stepper">
+                    <div className="title">{title}</div>
+                    <div className="title">{`${count}/7`}</div>
+                </div>
+                <div className="mobile-empty-div">
+                    <div style={{width:`${percentage}`, height:"4px",backgroundColor:"red" ,borderRadius:"6px"}}></div>
+                    
+                </div>
+            </div>
+        </div>
         <div className="body">
             <div className=" documents-container">
                 <div className="documents-sub-container">
@@ -439,7 +460,7 @@ const Documents = () => {
                             })
                         }
                     </div>
-                    <div className="documents-upload-div" >
+                    <div className="documents-upload-div-two" >
                         {
                             Document && Documents.map((document) => {
                                 switch (document.fieldName) {
@@ -480,6 +501,7 @@ const Documents = () => {
                                         case "declare_additional_info":
                                             return (
                                                 <div className='document-checkbox-type' key={document.fieldName}>
+                                                    <hr></hr>
                                                     <div className='document-type'>
                                                         <b>
                                                             <label className="checkbox-container">
@@ -493,6 +515,7 @@ const Documents = () => {
                                         case "is_fast_forward_allowed":
                                             return (
                                                 <div className='document-checkbox-type' key={document.fieldName}>
+                                                    <hr></hr>
                                                     <div className='document-type'>
                                                         <b>
                                                             <label className="checkbox-container">
@@ -520,6 +543,9 @@ const Documents = () => {
                 </div>
             </div>
         </div>
+
+    </div>
+        
 
 
     );

@@ -15,8 +15,7 @@
 
 }
 .additional-info-div{
-    padding-left: 30px;
-    padding-top: 80px;
+    padding-top: 20px;
 }
 .document-front, .document-back {
     width: 100%;
@@ -35,8 +34,8 @@
     margin-right: 25px;
 }
 .document-type {
-    margin-top: 25px;
-    margin-bottom: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 .document-checkbox-type input {
     margin-right: 10px;
@@ -220,6 +219,12 @@ h2 {
 
     }
 
+    .documents-upload-div-two {
+       
+        max-width: 100%;
+        margin-bottom: 15px;
+
+    }
     .documents-buttons-main-div {
         width: 300px;
     }

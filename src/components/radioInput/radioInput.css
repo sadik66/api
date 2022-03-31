@@ -83,6 +83,10 @@
     .document-radio-type .main-span {
         display: block;
     }
+    .document-radio-type{
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 

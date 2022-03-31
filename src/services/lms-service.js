@@ -26,3 +26,20 @@ export const generateOtp= async (data)=>{
         baseUrl:LMS_BASE_URL,
     })
 }
+export const verifyOtp= async (data)=>{
+    return await postRequest({
+        url:VERIFY_OTP,
+        data:data,
+        headers:lmsStandardHeaders,
+        baseUrl:LMS_BASE_URL,
+    })
+}
+
+export const resendOtp= async (data)=>{
+    return await postRequest({
+        url:RESET_OTP,
+        data:data,
+        headers:lmsStandardHeaders,
+        baseUrl:LMS_BASE_URL,
+    })
+}

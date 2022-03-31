@@ -4,7 +4,7 @@ import "./radioInput.css"
 
 const RaadioInput = ({ handleChange, fieldDisplayName, fieldName, mandatory, options }) => {
     return (
-        <div className='document-radio-type' >
+        <div className='document-radio-main-div' >
             <div className='document-type'>
                 <b>{fieldDisplayName}<span className='mandatory-section'>{mandatory ? "*" : ""}</span></b>
             </div>

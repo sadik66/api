@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { useHistory } from "react-router-dom";
 
 
@@ -6,16 +6,21 @@ import Input from "../textInput";
 import DateInput from "../dateInput";
 import Select from "../select";
 import NumberInput from "../numberInput";
+import Stepper from "../stepper";
 
 import "./personalInfo.css"
 import "../../styles/common.css"
+import logo from "../../assets/logo.png"
 
+import { Mycontext } from "../context";
 import { ACTIVE_KYC_ID } from "../../constants";
 import { getCustomerKyc, getKycDefination, submitKyc } from "../../services/kyc-service";
 import { getCookie } from "../../utils/cookie-helper";
 import { toast } from "react-toastify";
 
 const PersonalInfoEdit = () => {
+  const {  title, setTitle, count, percentage } = useContext(Mycontext)
+
   const history = useHistory();
 
   const params = {
@@ -25,7 +30,6 @@ const PersonalInfoEdit = () => {
   const [personalInfoDetails, setPersonalInfoDetails] = useState([]);
   const [formErrors, setFormErrors] = useState({})
   const [showErrors, setShowErrors] = useState({})
-  const [title, setTitle] = useState('');
   const [age, setAge] = useState();
   const [isSubmit, setIsSubmit] = useState(false);
   const [versionData, setVersionData] = useState();
@@ -207,93 +211,117 @@ const PersonalInfoEdit = () => {
 
   let errorValues = Object.values(formErrors)
   return (
-    <div className="body">
-      <div className=" form-container">
-        <div className="sub-container">
-          <h2>{title}</h2>
-          <form className="main-form" >
-            {
-              personalInfoDetails && personalInfoDetails.map((person) => {
-                switch (person.type) {
-                  case "TEXT":
-                    return (
-                      <div key={person.fieldName}>
-                        <Input
-                          handleChange={handleChange}
-                          fieldDisplayName={person.fieldDisplayName}
-                          values={personalFormValues}
-                          fieldName={person.fieldName}
-                          mandatory={person.mandatory}
-                          showErrors={showErrors}
-                        />
-                      </div>
-                    );
-                  case "CALENDAR":
-                    return (
-                      <div key={person.fieldName}>
-                        <DateInput
-                          handleChange={handleChange}
-                          fieldDisplayName={person.fieldDisplayName}
-                          values={personalFormValues}
-                          fieldName={person.fieldName}
-                          mandatory={person.mandatory}
-                          showErrors={showErrors}
-                        />
+    <div className="root-body">
+      <div className="nav-bar">
+        <div className="nav-child"><img src={logo} alt="logo" /></div>
+      </div>
+      <div className="stepper-center">
+        <div className='order-list '>
+          <Stepper count={2}></Stepper>
+        </div>
+        <div className="tog-list">
+          <div className="mobile-stepper">
+            <div className="title">{title}</div>
+            <div className="title">{`${count}/7`}</div>
+          </div>
+          <div className="mobile-empty-div">
+            <div style={{ width: `${percentage}`, height: "4px", backgroundColor: "red", borderRadius: "6px" }}></div>
 
-                      </div>
-                    );
-                  case "NUMBER":
-                    return (
-                      <div key={person.fieldName}>
-                        <NumberInput
-                          handleChange={handleChange}
-                          fieldDisplayName={person.fieldDisplayName}
-                          values={age}
-                          fieldName={person.fieldName}
-                          mandatory={person.mandatory}
-                          showErrors={showErrors}
-
-                        />
-
-                      </div>
-                    );
-                  case "RADIO":
-                    return (
-                      <div key={person.fieldName}>
-                        <Select
-                          handleChange={handleChange}
-                          fieldDisplayName={person.fieldDisplayName}
-                          values={personalFormValues}
-                          fieldName={person.fieldName}
-                          options={person.options}
-                          mandatory={person.mandatory}
-                          showErrors={showErrors}
-                        />
-                      </div>
-                    );
-                  default:
-                    break;
-                }
-              })
-            }
-          </form>
-          <div className={Object.keys(formErrors).length !== 0 ? "show" : "hide"}>
-            {
-              errorValues && errorValues.map((error, i) => {
-                if (i === 0) return (<span>{error} </span>)
-              })
-            }
           </div>
         </div>
       </div>
 
-      <div className="documents-buttons-main-div">
-        <div className="documents-buttons">
-          <button className="btn-pre" onClick={() => { history.push("/personaldetails") }} disabled={response !== null ? false : true}>Discard Change</button>
-          <button className="btn-en" onClick={handlesubmit}>{response !== null ? "Update" : "submit"}</button>
+      <div className="body">
+        <div className=" form-container">
+          <div className="sub-container">
+            <h2>{title}</h2>
+            <form className="main-form" >
+              {
+                personalInfoDetails && personalInfoDetails.map((person) => {
+                  switch (person.type) {
+                    case "TEXT":
+                      return (
+                        <div key={person.fieldName}>
+                          <Input
+                            handleChange={handleChange}
+                            fieldDisplayName={person.fieldDisplayName}
+                            values={personalFormValues}
+                            fieldName={person.fieldName}
+                            mandatory={person.mandatory}
+                            showErrors={showErrors}
+                          />
+                        </div>
+                      );
+                    case "CALENDAR":
+                      return (
+                        <div key={person.fieldName}>
+                          <DateInput
+                            handleChange={handleChange}
+                            fieldDisplayName={person.fieldDisplayName}
+                            values={personalFormValues}
+                            fieldName={person.fieldName}
+                            mandatory={person.mandatory}
+                            showErrors={showErrors}
+                          />
+
+                        </div>
+                      );
+                    case "NUMBER":
+                      return (
+                        <div key={person.fieldName}>
+                          <NumberInput
+                            handleChange={handleChange}
+                            fieldDisplayName={person.fieldDisplayName}
+                            values={age}
+                            fieldName={person.fieldName}
+                            mandatory={person.mandatory}
+                            showErrors={showErrors}
+
+                          />
+
+                        </div>
+                      );
+                    case "RADIO":
+                      return (
+                        <div key={person.fieldName}>
+                          <Select
+                            handleChange={handleChange}
+                            fieldDisplayName={person.fieldDisplayName}
+                            values={personalFormValues}
+                            fieldName={person.fieldName}
+                            options={person.options}
+                            mandatory={person.mandatory}
+                            showErrors={showErrors}
+                          />
+                        </div>
+                      );
+                    default:
+                      break;
+                  }
+                })
+              }
+            </form>
+            <div className={Object.keys(formErrors).length !== 0 ? "show" : "hide"}>
+              {
+                errorValues && errorValues.map((error, i) => {
+                  if (i === 0) return (<span>{error} </span>)
+                })
+              }
+            </div>
+          </div>
+        </div>
+
+        <div className="documents-buttons-main-div">
+          <div className="documents-buttons">
+            <button className="btn-pre" onClick={() => { history.push("/personaldetails") }} disabled={response !== null ? false : true}>Discard Change</button>
+            <button className="btn-en" onClick={handlesubmit}>{response !== null ? "Update" : "submit"}</button>
+          </div>
         </div>
       </div>
+
     </div>
+
+
 
   );
 }

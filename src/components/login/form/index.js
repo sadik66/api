@@ -18,6 +18,7 @@ const LoginForm = () => {
     }, [])
     const newToken = async () => {
         const { status, error, data } = await SaveNewToken({ client_secret: LMS_CLIENT_SECRET });
+        console.log("s",status, error, data)
         if (error) {
             console.log(error)
         } else if (status === 200 && data.status === "success") {
@@ -53,6 +54,7 @@ const LoginForm = () => {
             purpose: "customer_verification"
         }
         const { status, data, error } = await generateOtp(postData)
+        console.log(data)
         if(error){
             console.log(error)
         }else if(status===200 && data.status==="success"){
